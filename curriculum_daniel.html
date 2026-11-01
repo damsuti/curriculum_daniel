@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Martins Tsuji | Currículo Interativo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            glow: '#38bdf8',
+                        },
+                        darkbg: '#0f172a',
+                        cardbg: '#1e293b',
+                        bordercolor: '#334155'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Neon Glow Effects */
+        .neon-glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
+        }
+
+        .tab-active {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            border-color: #38bdf8 !important;
+        }
+
+        /* Smooth Tab Transitions */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Toast notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            transform: translateY(100px);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        #toast.show {
+            visibility: visible;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Print Adjustments */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .glass-card {
+                background: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+            }
+            .tab-content {
+                display: block !important;
+                opacity: 1 !important;
+                margin-bottom: 2rem;
+            }
+            .text-gray-300, .text-gray-400, .text-slate-300 {
+                color: #333333 !important;
+            }
+            h1, h2, h3, h4 {
+                color: #000000 !important;
+            }
+            .badge-skill {
+                border: 1px solid #ccc !important;
+                color: #000 !important;
+                background: #f0f0f0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-800 text-white px-5 py-3 rounded-xl border border-brand-500 flex items-center gap-3 shadow-2xl">
+        <i class="fa-solid fa-circle-check text-brand-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">Copiado para a área de transferência!</span>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- HEADER / HERO SECTION -->
+        <header class="glass-card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden neon-glow-cyan">
+            <!-- Background Glow Blur -->
+            <div class="absolute -top-10 -right-10 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold uppercase tracking-wider mb-3 border border-brand-500/20">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Disponível para Oportunidades
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-2">
+                        Daniel Martins Tsuji
+                    </h1>
+                    <p class="text-slate-400 text-sm sm:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-brand-400"></i> Florianópolis, SC — Brasil
+                    </p>
+                </div>
+
+                <!-- Contact & Social Actions -->
+                <div class="flex flex-wrap gap-2 sm:gap-3 no-print w-full md:w-auto">
+                    <a href="https://github.com/damsuti" target="_blank" class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 transition duration-200 text-sm font-medium">
+                        <i class="fa-brands fa-github text-lg"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/" target="_blank" class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 transition duration-200 text-sm font-medium">
+                        <i class="fa-brands fa-linkedin text-lg text-blue-400"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <button onclick="copyToClipboard('daniel.martinstsuji@gmail.com', 'E-mail copiado!')" class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 transition duration-200 text-sm font-medium" title="Copiar Email">
+                        <i class="fa-solid fa-envelope text-lg text-emerald-400"></i>
+                        <span>E-mail</span>
+                    </button>
+                    <button onclick="copyToClipboard('+5548991946155', 'Telefone copiado!')" class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 transition duration-200 text-sm font-medium" title="Copiar Telefone">
+                        <i class="fa-solid fa-phone text-lg text-cyan-400"></i>
+                        <span>Contato</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- UNIVERSAL SUMMARY -->
+            <div class="mt-6 pt-6 border-t border-slate-700/50">
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed text-justify">
+                    Profissional dedicado, analítico e versátil com sólida bagagem em ecossistema tecnológico e operacional. Tenho facilidade em aprendizagem,
+                     excelente capacidade de comunicação interpessoal, resolução prática de problemas e adaptabilidade a diferentes contextos corporativos. 
+                     Possuo experiência consistente em qualidade de software (QA), suporte técnico N2/L2 B2B e atendimento ao público.
+                    Colaborar de forma proativa para crescimento da empresa agregando valor tanto em equipes ágeis de tecnologia quanto em rotinas operacionais e comerciais. 
+                                </p>
+            </div>
+        </header>
+
+        <!-- PROFILE SELECTOR (TABS) -->
+        <section class="mb-8 no-print">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                <h2 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-brand-400"></i> Selecione a Área de Foco:
+                </h2>
+                <span class="text-xs text-slate-400">Alterne para ajustar a síntese do perfil e as habilidades destacadas</span>
+            </div>
+
+            <!-- TAB BUTTONS -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button onclick="switchTab('qa')" id="tab-btn-qa" class="tab-btn tab-active flex items-center justify-center gap-3 p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 text-slate-300 font-semibold text-sm sm:text-base hover:border-brand-500 transition-all duration-200">
+                    <i class="fa-solid fa-vial-circle-check text-lg"></i>
+                    <span>Qualidade (QA)</span>
+                </button>
+                <button onclick="switchTab('suporte')" id="tab-btn-suporte" class="tab-btn flex items-center justify-center gap-3 p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 text-slate-300 font-semibold text-sm sm:text-base hover:border-brand-500 transition-all duration-200">
+                    <i class="fa-solid fa-headset text-lg"></i>
+                    <span>Suporte Técnico N2</span>
+                </button>
+                <button onclick="switchTab('comercial')" id="tab-btn-comercial" class="tab-btn flex items-center justify-center gap-3 p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 text-slate-300 font-semibold text-sm sm:text-base hover:border-brand-500 transition-all duration-200">
+                    <i class="fa-solid fa-store text-lg"></i>
+                    <span>Comercial & Vendas</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- DYNAMIC SECTION: PROFILE SUMMARY & SKILLS -->
+        <section class="mb-8">
+            <!-- ================= TAB 1: QA ================= -->
+            <div id="tab-content-qa" class="tab-content active space-y-6">
+                <!-- Perfil QA -->
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-brand-500">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-user-gear text-brand-400"></i> Síntese do Perfil (Foco em QA & Testes)
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Analista de Qualidade de Software (QA) com sólida vivência na validação de sistemas web e mobile, planejamento de estratégias de testes e automação frontend/backend utilizando Cypress com JavaScript e TypeScript. Ampla experiência na elaboração de cenários de teste (funcionais, não funcionais, exploratórios e regressivos), testes de APIs REST (Postman/Swagger) com validação de payloads e contratos, além de criação e manipulação de massa de dados em bancos SQL. Forte atuação em times ágeis (Scrum/Kanban), integração de testes em pipelines CI/CD e documentação clara de evidências e bugs junto aos equipes de desenvolvimento.
+                    </p>
+                </div>
+
+                <!-- Habilidades QA -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-code text-brand-400"></i> Habilidades Técnicas Destacadas (QA)
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Cypress (JS/TS)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Testes de APIs REST (Postman / Swagger)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Testes Unitários (Jest)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> SQL (PostgreSQL, Oracle, Queries)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Testes Manuais, Exploratórios e Regressivos</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Docker & CI/CD Pipelines</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Metodologias Ágeis (Scrum / Kanban)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 2: SUPORTE TÉCNICO ================= -->
+            <div id="tab-content-suporte" class="tab-content space-y-6">
+                <!-- Perfil Suporte -->
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-brand-500">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-user-gear text-brand-400"></i> Síntese do Perfil (Foco em Suporte N2 & Troubleshooting)
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Profissional de TI com sólida experiência em Suporte Técnico Nível 2 (L2), atendimento consultivo B2B e diagnóstico de problemas complexos em ecossistemas de software. Especialista em rotinas de troubleshooting avançado, análise minuciosa de logs, leitura e montagem de requisições em APIs REST, além de consultas em Bancos de Dados Relacionais e Não Relacionais para investigação de falhas de integração e autenticação. Habilidade comprovada em manter uma comunicação formal, clara e coesa junto a clientes corporativos e equipes multidisciplinares de Desenvolvimento e Infraestrutura.
+                    </p>
+                </div>
+
+                <!-- Habilidades Suporte -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-code text-brand-400"></i> Habilidades Técnicas Destacadas (Suporte N2)
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Suporte Consultivo B2B (N2/L2)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Troubleshooting Avançado & Análise de Logs</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Consumo & Requisições de APIs (REST/Postman)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Bancos Relacionais (MySQL, PostgreSQL, SQLite) & NoSQL</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Linux (Ubuntu Server) & Docker</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Comunicação Técnica Formal & Gestão de KB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 3: COMERCIAL / OPERACIONAL ================= -->
+            <div id="tab-content-comercial" class="tab-content space-y-6">
+                <!-- Perfil Comercial -->
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-brand-500">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-user-gear text-brand-400"></i> Síntese do Perfil (Foco em Vendas & Operação)
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Profissional dedicado e versátil, com ampla experiência em atendimento direto ao público, vendas, controle de caixa, hospitalidade e organização de rotinas operacionais cotidianas. Destaque em comunicação interpessoal, rapidez na resolução de demandas em ambientes dinâmicos e de alto volume, facilidade no relacionamento com clientes de diversos perfis e negociação. Possui vivência diversificada tanto no ambiente corporativo e tecnológico quanto em serviços de atendimento e eventos (como garçom, bartender e recepção). Perfil pontual, proativo e com extrema facilidade para aprender novos processos de trabalho.
+                    </p>
+                </div>
+
+                <!-- Habilidades Comercial -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-handshake text-brand-400"></i> Habilidades Comerciais & Operacionais Destacadas
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Atendimento ao público</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Trabalho em equipe</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Vendas Diretas, Abordagem & Negociação</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Proatividade, Autonomia & Comunicação Fluida</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Pacote office.(World, Excel e PowerPoint)</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Garçom; venda de comidas e bebidas</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Abertura/Fechamento de Caixa & Controle Financeiro</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Agilidade em Ambientes de Alto Fluxo</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Organização de Espaços Físicos & Estoque</span>
+                        <span class="badge-skill px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Bartender; Preparo de Drinks & Gestão de Bar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATIC SECTION: COMPLETE EXPERIENCES & BACKGROUND (ALWAYS VISIBLE) -->
+        <main class="space-y-8">
+
+            <!-- Experiências Profissionais Corporativas (Fixas) -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-briefcase text-brand-400"></i> Experiência Profissional
+                </h3>
+                
+                <div class="space-y-8 relative border-l-2 border-slate-700 ml-3 pl-6 sm:pl-8">
+                    
+                    <!-- SQLink -->
+                    <div class="relative">
+                        <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-slate-900"></div>
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                            <h4 class="text-base sm:text-lg font-bold text-white">Analista de Suporte N2 / Atendimento e Validação</h4>
+                            <span class="text-xs text-brand-400 font-semibold bg-brand-500/10 px-3 py-1 rounded-full w-fit">Fev 2026 - Ago 2026</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400 mb-3">SQLink (SQL Tecnologia e Serviços) — Florianópolis, SC</p>
+                        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed">
+                            <li>Atendimento técnico consultivo B2B e atendimento ao cliente final por canais digitais e telefônicos, com foco em resolução ágil de incidentes.</li>
+                            <li>Diagnóstico avançado de falhas em ambiente de produção, análise minuciosa de logs de aplicação e triagem técnica de chamados escalados N2.</li>
+                            <li>Execução de consultas e validação de dados em bancos relacionais e servidores Linux (Ubuntu) para manutenção da estabilidade de operação.</li>
+                            <li>Execução e homologação de deploys de aplicações após testes rigorosos de aceitação e regressão operacional.</li>
+                            <li>Organização de rotinas administrativas internas e comunicação técnica entre clientes corporativos, desenvolvedores e infraestrutura.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Infinity Base -->
+                    <div class="relative">
+                        <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-900"></div>
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                            <h4 class="text-base sm:text-lg font-bold text-white">Analista de Qualidade e Operações</h4>
+                            <span class="text-xs text-slate-400 font-semibold bg-slate-800 px-3 py-1 rounded-full w-fit">Ago 2023 - Dez 2024</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400 mb-3">Infinity Base — Florianópolis, SC</p>
+                        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed">
+                            <li>Atuação na garantia de qualidade de aplicações Web e Mobile (Node.js, React e React Native).</li>
+                            <li>Planejamento e implementação de suítes de testes automatizados com Cypress (JS/TS) para regressão e E2E, além de testes de contrato e regras de negócio de APIs REST (Postman/Swagger).</li>
+                            <li>Desenvolvimento de testes unitários em Jest e integração de suítes automatizadas em pipelines CI/CD (Shift-Left Testing).</li>
+                            <li>Acompanhamento próximo aos usuários para mapeamento de requisitos, validação de regras de negócio e coleta de feedbacks operacionais.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Laboratório Bridge -->
+                    <div class="relative">
+                        <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-900"></div>
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                            <h4 class="text-base sm:text-lg font-bold text-white">Analista de Qualidade e Processos Internos</h4>
+                            <span class="text-xs text-slate-400 font-semibold bg-slate-800 px-3 py-1 rounded-full w-fit">Ago 2021 - Abr 2023</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400 mb-3">Laboratório Bridge — Florianópolis, SC</p>
+                        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed">
+                            <li>Elaboração de cenários de teste, execução de testes manuais, exploratórios e funcionais em sistemas web.</li>
+                            <li>Criação, saneamento e gerenciamento de massa de dados de teste via queries SQL estruturadas (PostgreSQL e Oracle).</li>
+                            <li>Orquestração e gerenciamento de containers Docker para subida de ambientes de homologação isolados.</li>
+                            <li>Análise operacional de fluxos, identificação de gargalos de rotina, conferência de dados e suporte logístico ao time.</li>
+                        </ul>
+                    </div>
+
+                    <!-- UDESC -->
+                    <div class="relative">
+                        <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-900"></div>
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
+                            <h4 class="text-base sm:text-lg font-bold text-white">Suporte Técnico de Informática e Atendimento Operacional</h4>
+                            <span class="text-xs text-slate-400 font-semibold bg-slate-800 px-3 py-1 rounded-full w-fit">Fev 2019 - Ago 2019</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400 mb-3">UDESC - FAED — Florianópolis, SC</p>
+                        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed">
+                            <li>Atendimento presencial e telefônico a professores, alunos e visitantes, com diagnósticos em sistemas/redes e instalação de softwares.</li>
+                            <li>Organização de espaços físicos e logística de equipamentos da unidade.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Outras Experiências Operacionais e Serviços Autônomos (Fixas) -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-users-viewfinder text-brand-400"></i> Outras Experiências Operacionais & Trabalhos Autônomos
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Atendimento como Garçom -->
+                    <div class="p-5 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-slate-600 transition">
+                        <h4 class="text-sm sm:text-base font-bold text-white mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-brand-400"></i> Atendimento como Garçom
+                        </h4>
+                        <p class="text-xs text-slate-400 mb-2">Freelancer | Restaurantes, Eventos e Festas</p>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Atendimento dinâmico e cortês de mesas, registro e entrega ágil de pedidos, acolhimento de clientes, integração contínua com a equipe de cozinha e bar, além de zelo pela organização e higienização do salão.
+                        </p>
+                    </div>
+
+                    <!-- Atuação como Bartender -->
+                    <div class="p-5 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-slate-600 transition">
+                        <h4 class="text-sm sm:text-base font-bold text-white mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-martini-glass-citrus text-pink-400"></i> Atuação como Bartender
+                        </h4>
+                        <p class="text-xs text-slate-400 mb-2">Freelancer | Eventos e Estabelecimentos</p>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Preparo e montagem de drinks e coquetéis clássicos e autorais, gestão e organização do balcão, controle de estoque de insumos/bebidas, alta produtividade em ambientes de grande fluxo e atendimento direto ao público.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-slate-600 transition">
+                        <h4 class="text-sm sm:text-base font-bold text-white mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-cash-register text-emerald-400"></i> Operador de Caixa & Eventos
+                        </h4>
+                        <p class="text-xs text-slate-400 mb-2">Eventos Beneficentes e Regionais</p>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Atuação no controle e operação de caixa em leilões de caridade, exposições agropecuárias e festas locais. Responsável pelo fechamento de caixa, troco, conferência de valores (dinheiro/PIX/cartão) e atendimento em eventos de grande fluxo.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-slate-600 transition">
+                        <h4 class="text-sm sm:text-base font-bold text-white mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-hotel text-cyan-400"></i> Recepcionista & Atendimento em Hostels
+                        </h4>
+                        <p class="text-xs text-slate-400 mb-2">Hostels (Jurema / Rudha)</p>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Recepção, acolhimento de hóspedes, rotinas de check-in/check-out e atendimento bilíngue/multicultural. Prestação de informações locais, gestão de reservas, organização do espaço e mediação de imprevistos.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-slate-600 transition">
+                        <h4 class="text-sm sm:text-base font-bold text-white mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping text-amber-400"></i> Vendas Diretas & Atendimento ao Cliente
+                        </h4>
+                        <p class="text-xs text-slate-400 mb-2">Produtos Regionais e Artesanais</p>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Comercialização direta de produtos alimentícios e lembranças locais (cacau, cocadas, souvenirs). Abordagem de clientes, negociação, exposição atrativa de mercadorias e gestão financeira de pagamentos.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-slate-600 transition">
+                        <h4 class="text-sm sm:text-base font-bold text-white mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-tree text-green-400"></i> Zeladoria & Paisagismo
+                        </h4>
+                        <p class="text-xs text-slate-400 mb-2">Campings e Propriedades (Itacaré e Região)</p>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Serviços operacionais de jardinagem, manutenção preventiva e revitalização de terrenos e espaços abertos de convivência para recepção de visitantes e turistas.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+        <!-- FOOTER / FIXED SECTIONS (EDUCATION & LANGUAGES) -->
+        <footer class="mt-8 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Formação -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-brand-400"></i> Formação Acadêmica
+                    </h3>
+                    <h4 class="text-sm font-semibold text-slate-200">Universidade Federal de Santa Catarina (UFSC)</h4>
+                    <p class="text-xs text-slate-400 mt-1">Bacharelado em Sistemas de Informação</p>
+                    <span class="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs border border-slate-700">Em andamento</span>
+                </div>
+
+                <!-- Idiomas -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-language text-brand-400"></i> Idiomas
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-xs sm:text-sm">
+                            <span class="text-slate-300 font-medium">Inglês</span>
+                            <span class="text-brand-400 font-semibold">Intermediário</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-brand-500 h-full w-3/5"></div>
+                        </div>
+
+                        <div class="flex justify-between items-center text-xs sm:text-sm pt-2">
+                            <span class="text-slate-300 font-medium">Espanhol</span>
+                            <span class="text-slate-400 font-semibold">Básico</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-brand-500/50 h-full w-2/5"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-slate-800 no-print">
+                <p class="text-xs text-slate-500">© Daniel Martins Tsuji. Hospedado via GitHub Pages.</p>
+                
+                <button onclick="window.print()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm transition shadow-lg shadow-brand-600/30">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Imprimir / Salvar em PDF</span>
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Switch Active Tabs Smoothly
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active styles from buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+
+            // Show selected content
+            const activeContent = document.getElementById(`tab-content-${tabId}`);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+
+            // Highlight active button
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+            }
+        }
+
+        // Copy Text to Clipboard Safely
+        function copyToClipboard(text, message) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(message);
+        }
+
+        // Show Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
