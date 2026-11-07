@@ -10,11 +10,12 @@ A página principal (`index.html`) foi desenvolvida para servir como um portfól
 * **Acesso Direto aos Currículos:** Links diretos para download e visualização das diferentes versões do currículo.
 * **Apresentação Comercial:** Visualização rápida das minhas competências de vendas, escuta ativa e diagnóstico.
 
+👉 [**Clique aqui para acessar o Hub de Currículos**](https://damsuti.github.io/curriculum_daniel/)
+
+
 ### 🔗 Saiba Mais & Acesse o Perfil Completo
 
 Acesse a landing page interativa hospedada no GitHub Pages para visualizar as apresentações detalhadas e interagir com o hub completo:
-
-👉 [**Clique aqui para acessar o Hub de Currículos**](https://damsuti.github.io/curriculum_daniel/)
 
 ## 📁 Estrutura do Repositório
 
@@ -43,5 +44,3 @@ Acesse a landing page interativa hospedada no GitHub Pages para visualizar as ap
 
 * **HTML5 & CSS3:** Estrutura semântica e estilização moderna e responsiva.
 * **Git & GitHub Pages:** Versionamento e hospedagem contínua da página de captação.
-
-*Atualizado constantemente para refletir minha evolução profissional e certificações em andamento.*
